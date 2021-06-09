@@ -52,9 +52,9 @@ const clearGrid = () => {
 
 const editGrid = () => {
 	maxSideLength = 100;
-	let sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})', ""`);
+	let sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})`, "");
 	while (!sideLength) {
-		sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})', ""`);
+		sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})`, "");
 	}
 	sideLength = parseInt(sideLength);
 	if (sideLength > maxSideLength) sideLength = maxSideLength;

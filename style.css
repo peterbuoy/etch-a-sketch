@@ -10,28 +10,14 @@ body {
 	max-width: 480px;
 	max-height: 480px;
 	margin: auto;
-	width: 50%;
+	width: 100%;
 	border: 5px solid blue;
 	border-radius: 5px;
 }
 
-@keyframes newBoard {
-	from {
-		border: 1px solid white;
-		background-color: black;
-		cursor:not-allowed;
-	}
-	to {
-		border: 1px solid black;
-		background-color: white;
-		cursor:not-allowed;
-	}
-}
-
 #container > div {
-	border: 1px solid black;
-	
-	
+	border-right: 0.01px solid #333030;
+	border-bottom: 0.01px solid #333030;
 }
 
 button:hover {
