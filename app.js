@@ -27,11 +27,21 @@ const colorSquare = (e) => {
 
 function populateGrid(sideLength) {
 	let gridCount = sideLength ** 2;
+	// Using fragments decreases render time by HALF
+	let gridFrag = document.createDocumentFragment();
 	for (let i = 0; i < gridCount; i++) {
 		let div = document.createElement('div')
-		div.classList = 'square'
-		CONTAINER.appendChild(div);
+		div.classList.add('square');
+		gridFrag.appendChild(div)
 	}
+	CONTAINER.appendChild(gridFrag);
+	/*
+	for (let i = 0; i < gridCount; i++) {
+		let div = document.createElement('div')
+		div.classList.add('square');
+		CONTAINER.append(div);
+	}
+	*/
 }
 
 const clearGrid = () => {
@@ -41,17 +51,19 @@ const clearGrid = () => {
 }
 
 const editGrid = () => {
-	
-	let sideLength = prompt('How many squares per side would you like? (Max: 70)', "");
+	maxSideLength = 100;
+	let sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})', ""`);
 	while (!sideLength) {
-		sideLength = prompt('How many squares per side would you like? (Max: 70)', "");
+		sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})', ""`);
 	}
 	sideLength = parseInt(sideLength);
-	if (sideLength > 70) sideLength = 70;
+	if (sideLength > maxSideLength) sideLength = maxSideLength;
 	while(CONTAINER.firstChild) CONTAINER.removeChild(CONTAINER.firstChild);
+	console.time('populateGrid')
 	populateGrid(sideLength);
+	console.timeEnd('populateGrid');
 	addMouseoverListeners()
-	squareSize = (MAX_PIXEL_SIDE_LENGTH / sideLength).toString();
+	squareSize = (MAX_PIXEL_SIDE_LENGTH / sideLength);
 	CONTAINER.style.gridTemplateRows = `repeat(${sideLength}, ${squareSize}px)`;
 	CONTAINER.style.gridTemplateColumns = `repeat(${sideLength}, ${squareSize}px)`;
 }

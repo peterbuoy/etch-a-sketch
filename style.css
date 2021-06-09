@@ -30,8 +30,8 @@ body {
 
 #container > div {
 	border: 1px solid black;
-	animation-name: newBoard;
-	animation-duration: 0.5s;
+	
+	
 }
 
 button:hover {
