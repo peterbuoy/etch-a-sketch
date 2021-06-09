@@ -1,43 +1,57 @@
 const CONTAINER = document.getElementById('container');
-const DIV = document.createElement('div');
 const SQUARE_ARR = document.getElementsByClassName('square');
-DIV.classList.add('square');
 const CLEAR_BUTTON = document.getElementById('clear_button');
-CLEAR_BUTTON.addEventListener('click', () => resetGrid());
+const EDIT_SIZE_BUTTON = document.getElementById('edit_size_button')
+const MAX_PIXEL_SIDE_LENGTH = parseInt(window.getComputedStyle(CONTAINER).maxWidth);
 
-let sideLength = 8;
+CLEAR_BUTTON.addEventListener('click', () => clearGrid());
+EDIT_SIZE_BUTTON.addEventListener('click', () => editGrid());
 
-populateGrid(sideLength)
-
-function populateGrid(sideLength) {
-	let gridCount = sideLength ** 2;
-	for (let i = 0; i < gridCount; i++) {
-		// use cloneNode b/c appendChild just appends if already exists
-		CONTAINER.appendChild(DIV.cloneNode());
+// airbnb recommended style for functions
+const addMouseoverListeners = function addMouseoverEventListenerForSquares() {
+	for (let i = 0; i < SQUARE_ARR.length; i++) {
+		SQUARE_ARR[i].addEventListener('mouseover', function (e) {
+			colorSquare(e);
+		})
 	}
 }
 
-// Add event listener for each square
-for (let i = 0; i < SQUARE_ARR.length; i++) {
-	SQUARE_ARR[i].addEventListener('mouseover', function (e) {
-		colorSquare(e);
-	})
-}
+// Initialization
+let sideLength = 8;
+populateGrid(sideLength)
+addMouseoverListeners()
 
 const colorSquare = (e) => {
 	e.target.style.backgroundColor = 'red';
 }
 
-const resetGrid = () => {
+function populateGrid(sideLength) {
+	let gridCount = sideLength ** 2;
+	for (let i = 0; i < gridCount; i++) {
+		let div = document.createElement('div')
+		div.classList = 'square'
+		CONTAINER.appendChild(div);
+	}
+}
+
+const clearGrid = () => {
 	for (let i = 0; i < SQUARE_ARR.length; i++) {
 		SQUARE_ARR[i].style.backgroundColor= 'white';
 	}
-	while(CONTAINER.firstChild) {
-		CONTAINER.removeChild(CONTAINER.firstChild);
+}
+
+const editGrid = () => {
+	
+	let sideLength = prompt('How many squares per side would you like? (Max: 70)', "");
+	while (!sideLength) {
+		sideLength = prompt('How many squares per side would you like? (Max: 70)', "");
 	}
-	// This should be in a different function called change grid size
-	// little different from the instructions
-	let gridCount = parseInt(prompt('How many squares per side would you like?'));
-	if (gridCount > 100) gridCount = 100;
-	populateGrid(gridCount);
+	sideLength = parseInt(sideLength);
+	if (sideLength > 70) sideLength = 70;
+	while(CONTAINER.firstChild) CONTAINER.removeChild(CONTAINER.firstChild);
+	populateGrid(sideLength);
+	addMouseoverListeners()
+	squareSize = (MAX_PIXEL_SIDE_LENGTH / sideLength).toString();
+	CONTAINER.style.gridTemplateRows = `repeat(${sideLength}, ${squareSize}px)`;
+	CONTAINER.style.gridTemplateColumns = `repeat(${sideLength}, ${squareSize}px)`;
 }
