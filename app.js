@@ -3,15 +3,22 @@ const SQUARE_ARR = document.getElementsByClassName('square');
 const CLEAR_BUTTON = document.getElementById('clear_button');
 const EDIT_SIZE_BUTTON = document.getElementById('edit_size_button')
 const MAX_PIXEL_SIDE_LENGTH = parseInt(window.getComputedStyle(CONTAINER).maxWidth);
+const RED_COLOR_BUTTON = document.getElementById('red_color_button');
+const RANDOM_COLOR_BUTTON = document.getElementById('random_color_button');
+let colorChoice = 'red';
+
 
 CLEAR_BUTTON.addEventListener('click', () => clearGrid());
 EDIT_SIZE_BUTTON.addEventListener('click', () => editGrid());
+RED_COLOR_BUTTON.addEventListener('click', () => colorChoice = 'red');
+RANDOM_COLOR_BUTTON.addEventListener('click', () => colorChoice = 'random');
 
 // airbnb recommended style for functions
 const addMouseoverListeners = function addMouseoverEventListenerForSquares() {
 	for (let i = 0; i < SQUARE_ARR.length; i++) {
 		SQUARE_ARR[i].addEventListener('mouseover', function (e) {
-			colorSquare(e);
+			if(colorChoice == 'red') colorSquareRed(e);
+			if(colorChoice == 'random') colorSquareRandom(e);
 		})
 	}
 }
@@ -21,8 +28,15 @@ let sideLength = 8;
 populateGrid(sideLength)
 addMouseoverListeners()
 
-const colorSquare = (e) => {
+const colorSquareRed = (e) => {
 	e.target.style.backgroundColor = 'red';
+}
+
+const colorSquareRandom = (e) => {
+	const getRandomRGBValue = () => {
+		return Math.floor(Math.random() * 256);
+	}
+	e.target.style.backgroundColor = `rgb(${getRandomRGBValue()},${getRandomRGBValue()},${getRandomRGBValue()})`;
 }
 
 function populateGrid(sideLength) {
@@ -53,6 +67,7 @@ const clearGrid = () => {
 const editGrid = () => {
 	maxSideLength = 100;
 	let sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})`, "");
+	if (sideLength == null) return;
 	while (!sideLength) {
 		sideLength = prompt(`How many squares per side would you like? (Max: ${maxSideLength})`, "");
 	}
