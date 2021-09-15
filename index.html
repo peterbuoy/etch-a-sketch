@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
-	<title>Etch-a-Sketch</title>
-</head>
-<body>
-	<h1>Mouse over the squares to change their color!</h1>
-	<button id='clear_button' type="button">
-		Clear Grid
-	</button>
-	<button id='edit_size_button' type="button">
-		Edit Size
-	</button>
-	<button id='red_color_button'>Red Squares</button>
-	<button id='random_color_button'>Random Color Squares</button>
-	<div id='container'>
-
-	</div>
-	<script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Etch-a-Sketch</title>
+  </head>
+  <body>
+    <h1>Mouse over the squares to change their color!</h1>
+    <button id="clear_button" type="button">Clear Grid</button>
+    <button id="edit_size_button" type="button">Edit Size</button>
+    <button id="red_color_button">Red Squares</button>
+    <button id="random_color_button">Random Color Squares</button>
+    <button
+      title="resets color to light gray and gradually shades to black"
+      id="gradual_shading_button"
+    >
+      Gradually Shaded Squares
+    </button>
+    <div id="container"></div>
+    <script src="app.js"></script>
+  </body>
 </html>
